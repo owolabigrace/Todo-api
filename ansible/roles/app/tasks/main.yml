@@ -1,0 +1,25 @@
+---
+- name: Create application directory
+  file:
+    path: /opt/todo-api
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+
+
+- name: Copy docker-compose file
+  copy:
+    src: docker-compose.yml
+    dest: /opt/todo-api/docker-compose.yml
+
+
+- name: Pull latest Docker image
+  command: docker compose pull
+  args:    
+    chdir: /opt/todo-api
+
+
+- name: Start Todo API containers
+  command: docker compose up -d
+  args:
+    chdir: /opt/todo-api

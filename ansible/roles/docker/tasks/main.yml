@@ -1,0 +1,32 @@
+---
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+
+- name: Install Docker dependencies
+  apt:
+    name:
+      - ca-certificates
+      - curl
+    state: present
+
+
+- name: Install Docker
+  apt:
+    name:
+      - docker.io
+    state: present
+
+- name: Add ubuntu user to docker group
+  user:
+    name: ubuntu
+    groups: docker
+    append: yes
+
+
+- name: Start Docker service
+  service:
+    name: docker
+    state: started
+    enabled: yes

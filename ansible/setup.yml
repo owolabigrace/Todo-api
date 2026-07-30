@@ -1,0 +1,10 @@
+---
+- name: Configure Todo API Server
+  hosts: web
+  become: true
+
+  roles:
+    - { role: base, tags: ["base"] }
+    - { role: docker, tags: ["docker"] }
+    - { role: app, tags: ["app"] }
+    - { role: nginx, tags: ["nginx"] }
